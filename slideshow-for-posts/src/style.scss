@@ -5,12 +5,34 @@ $nav_distance: calc(50% - 360px);
 $nav_distance_mobile: calc(50% - $site_padding);
 $max_width: 600px;
 
+@mixin button() {
+	background: $black;
+	border: 0;
+	border-radius: 8px;
+	color: $white;
+	cursor: pointer;
+	display: inline-block;
+	outline: 0;
+	padding: 10px 16px 11px;
+	font-weight: 700;
+	line-height: 1;
+	transition:
+		transform 200ms,
+		background 200ms;
+	&:hover {
+		background: transparent;
+		color: #000000;
+		box-shadow: 0 0 0 2px #000000 inset;
+	}
+}
+
 .wp-block-create-block-slideshow-for-posts {
 	padding: $site_padding;
 }
 
 .slideshow_for_posts {
 	&--container {
+		font-family: Arial, Helvetica, sans-serif;
 		padding-top: calc($site_padding * 2);
 		padding-bottom: $site_padding;
 		position: relative;
@@ -48,25 +70,12 @@ $max_width: 600px;
 		}
 
 		button {
-			background: $black;
-			border: 0;
-			border-radius: 8px;
-			color: $white;
-			cursor: pointer;
-			display: inline-block;
-			outline: 0;
-			padding: 10px 16px 11px;
-			font-weight: 700;
-			line-height: 1;
-			transition:
-				transform 200ms,
-				background 200ms;
-			&:hover {
-				background: transparent;
-				color: #000000;
-				box-shadow: 0 0 0 2px #000000 inset;
-			}
+			@include button();
 		}
+	}
+
+	&--content {
+		overflow: hidden;
 	}
 
 	&--slide {
@@ -74,8 +83,13 @@ $max_width: 600px;
 		max-width: 100%;
 		width: 100%;
 
+		a {
+			text-decoration: none;
+		}
+
 		img {
 			aspect-ratio: 16/9;
+			border-radius: 20px;
 			object-fit: cover;
 			max-width: $max_width;
 
@@ -97,6 +111,10 @@ $max_width: 600px;
 
 		.excerpt {
 			color: $black;
+		}
+
+		.button {
+			@include button();
 		}
 	}
 

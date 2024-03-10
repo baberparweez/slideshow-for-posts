@@ -40,7 +40,6 @@ function renderPosts(posts, container) {
 		const date = new Date(post.date).toLocaleDateString();
 		const excerpt = post.excerpt.rendered;
 		const link = post.link;
-		console.log(post);
 
 		slide.innerHTML = `
             <div class="slideshow_for_posts--content">
@@ -48,6 +47,7 @@ function renderPosts(posts, container) {
                 <a href="${link}" target="_blank"><h4 class="title">${title}</h4></a>
                 <p class="date">${date}</p>
                 <div class="excerpt">${excerpt}</div>
+                <a class="button" href="${link}" target="_blank">Read more</a>
             </div>
         `;
 
