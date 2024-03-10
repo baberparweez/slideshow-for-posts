@@ -149,7 +149,7 @@ function setupSlider(container) {
 			updateActiveSlide();
 			slidesContainer.style.transform = `translateX(-${totalSlides * 100}%)`;
 			setTimeout(() => {
-				slidesContainer.style.transition = "transform 0.3s ease-in-out";
+				slidesContainer.style.transition = "transform 0.3s ease";
 				updateSlidePosition();
 			}, 10);
 		} else {
@@ -167,7 +167,7 @@ function setupSlider(container) {
 			updateActiveSlide();
 			slidesContainer.style.transform = `translateX(${totalSlides * 100}%)`;
 			setTimeout(() => {
-				slidesContainer.style.transition = "transform 0.3s ease-in-out";
+				slidesContainer.style.transition = "transform 0.3s ease";
 				updateSlidePosition();
 			}, 10);
 		} else {
@@ -186,7 +186,9 @@ function setupSlider(container) {
 	const onDragMove = (e) => {
 		e.preventDefault(); // Prevent default touch/mouse behavior
 
-		currentX = e.touches[0].clientX;
+		if (e.type === "touchmove" || e.type === "mousemove") {
+			currentX = e.touches[0].clientX;
+		}
 
 		const diffX = currentX - startX;
 		const slideWidth = slidesContainer.offsetWidth;

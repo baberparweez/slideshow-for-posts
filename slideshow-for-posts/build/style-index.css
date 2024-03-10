@@ -13,7 +13,7 @@
 }
 .slideshow_for_posts--slides {
   display: flex;
-  transition: transform 0.5s ease;
+  transition: transform 0.3s ease;
 }
 .wp-block-create-block-slideshow-for-posts .slideshow_for_posts--slides {
   display: block;
