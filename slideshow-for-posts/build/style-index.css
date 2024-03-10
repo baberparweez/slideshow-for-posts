@@ -1,0 +1,120 @@
+/*!***************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/style.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************/
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+.wp-block-create-block-slideshow-for-posts {
+  padding: 30px;
+}
+
+.slideshow_for_posts--container {
+  padding-top: 60px;
+  padding-bottom: 30px;
+  position: relative;
+}
+.slideshow_for_posts--slides {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+.wp-block-create-block-slideshow-for-posts .slideshow_for_posts--slides {
+  display: block;
+}
+.slideshow_for_posts--slides_outer {
+  margin: 0 auto;
+  max-width: 600px;
+  overflow: hidden;
+}
+.slideshow_for_posts--form {
+  display: block;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.slideshow_for_posts--form input {
+  border: 0;
+  box-shadow: 0 0 0 2px #000000 inset;
+  border-radius: 8px;
+  display: inline-block;
+  outline: 0;
+  padding: 9px 16px 9px;
+  line-height: 1;
+}
+.slideshow_for_posts--form button {
+  background: #000;
+  border: 0;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  outline: 0;
+  padding: 10px 16px 11px;
+  font-weight: 700;
+  line-height: 1;
+  transition: transform 200ms, background 200ms;
+}
+.slideshow_for_posts--form button:hover {
+  background: transparent;
+  color: #000000;
+  box-shadow: 0 0 0 2px #000000 inset;
+}
+.slideshow_for_posts--slide {
+  flex: 0 0 100%;
+  max-width: 100%;
+  width: 100%;
+}
+.slideshow_for_posts--slide img {
+  aspect-ratio: 16/9;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.wp-block-create-block-slideshow-for-posts .slideshow_for_posts--slide img {
+  aspect-ratio: 16/9;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.slideshow_for_posts--slide .title {
+  color: #000;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.slideshow_for_posts--slide .date {
+  margin-bottom: 10px;
+}
+.slideshow_for_posts--slide .excerpt {
+  color: #000;
+}
+.slideshow_for_posts--prev, .slideshow_for_posts--next {
+  position: absolute;
+  top: unset;
+  bottom: 0;
+}
+@media only screen and (min-width: 767px) {
+  .slideshow_for_posts--prev, .slideshow_for_posts--next {
+    top: 280px;
+    bottom: unset;
+  }
+}
+.slideshow_for_posts--prev {
+  left: calc(50% - 30px);
+}
+@media only screen and (min-width: 767px) {
+  .slideshow_for_posts--prev {
+    left: calc(50% - 360px);
+  }
+}
+.slideshow_for_posts--next {
+  right: calc(50% - 30px);
+}
+@media only screen and (min-width: 767px) {
+  .slideshow_for_posts--next {
+    right: calc(50% - 360px);
+  }
+}
+.slideshow_for_posts--next svg {
+  transform: rotate(180deg);
+}
+
+/*# sourceMappingURL=style-index.css.map*/

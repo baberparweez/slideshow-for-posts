@@ -1,0 +1,138 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+$black: #000;
+$white: #fff;
+$site_padding: 30px;
+$nav_distance: calc(50% - 360px);
+$nav_distance_mobile: calc(50% - $site_padding);
+
+.wp-block-create-block-slideshow-for-posts {
+	padding: $site_padding;
+}
+
+.slideshow_for_posts {
+	&--container {
+		padding-top: calc($site_padding * 2);
+		padding-bottom: $site_padding;
+		position: relative;
+	}
+
+	&--slides {
+		display: flex;
+		transition: transform 0.5s ease;
+
+		.wp-block-create-block-slideshow-for-posts & {
+			display: block;
+		}
+
+		&_outer {
+			margin: 0 auto;
+			max-width: 600px;
+			overflow: hidden;
+		}
+	}
+
+	&--form {
+		display: block;
+		text-align: center;
+		margin-bottom: $site_padding;
+
+		input {
+			border: 0;
+			box-shadow: 0 0 0 2px #000000 inset;
+
+			border-radius: 8px;
+			display: inline-block;
+			outline: 0;
+			padding: 9px 16px 9px;
+			line-height: 1;
+		}
+
+		button {
+			background: $black;
+			border: 0;
+			border-radius: 8px;
+			color: $white;
+			cursor: pointer;
+			display: inline-block;
+			outline: 0;
+			padding: 10px 16px 11px;
+			font-weight: 700;
+			line-height: 1;
+			transition:
+				transform 200ms,
+				background 200ms;
+			&:hover {
+				background: transparent;
+				color: #000000;
+				box-shadow: 0 0 0 2px #000000 inset;
+			}
+		}
+	}
+
+	&--slide {
+		flex: 0 0 100%;
+		max-width: 100%;
+		width: 100%;
+
+		img {
+			aspect-ratio: 16/9;
+			object-fit: cover;
+
+			.wp-block-create-block-slideshow-for-posts & {
+				aspect-ratio: 16/9;
+				object-fit: cover;
+			}
+		}
+
+		.title {
+			color: $black;
+			margin-top: 20px;
+			margin-bottom: calc($site_padding / 3);
+		}
+
+		.date {
+			margin-bottom: calc($site_padding / 3);
+		}
+
+		.excerpt {
+			color: $black;
+		}
+	}
+	&--prev,
+	&--next {
+		position: absolute;
+		top: unset;
+		bottom: 0;
+
+		@media only screen and (min-width: 767px) {
+			top: 280px;
+			bottom: unset;
+		}
+	}
+
+	&--prev {
+		left: $nav_distance_mobile;
+
+		@media only screen and (min-width: 767px) {
+			left: $nav_distance;
+		}
+	}
+
+	&--next {
+		right: $nav_distance_mobile;
+
+		@media only screen and (min-width: 767px) {
+			right: $nav_distance;
+		}
+
+		svg {
+			transform: rotate(180deg);
+		}
+	}
+}
