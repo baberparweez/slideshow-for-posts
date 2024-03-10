@@ -186,8 +186,11 @@ function setupSlider(container) {
 	const onDragMove = (e) => {
 		e.preventDefault(); // Prevent default touch/mouse behavior
 
-		if (e.type === "touchmove" || e.type === "mousemove") {
+		// Check for touch events and mouse events separately
+		if (e.type === "touchmove") {
 			currentX = e.touches[0].clientX;
+		} else {
+			return; // Exit the function if it's neither a touchmove nor a valid mousemove
 		}
 
 		const diffX = currentX - startX;
