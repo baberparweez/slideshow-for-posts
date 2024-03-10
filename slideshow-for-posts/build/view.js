@@ -7,12 +7,12 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".slideshow_for_posts--container").forEach(container => {
     // Initial API call setup
     const numberOfPosts = container.getAttribute("data-num-posts") || "3";
-    const sortOrder = container.getAttribute("data-sort-order") || "desc";
+    const order = container.getAttribute("data-sort-order") || "desc";
     const customApiUrl = container.getAttribute("data-custom-api-url") || "https://wptavern.com";
-    const initialApiUrl = `${customApiUrl}/wp-json/wp/v2/posts?_embed&per_page=${numberOfPosts}&order=${sortOrder}&orderby=date`;
+    const initialApiUrl = `${customApiUrl}/wp-json/wp/v2/posts?_embed&per_page=${numberOfPosts}&order=${order}&orderby=date`;
 
     // Fetch initial posts
-    fetchAndUpdatePosts(initialApiUrl, container, numberOfPosts, sortOrder);
+    fetchAndUpdatePosts(initialApiUrl, container, numberOfPosts, order);
   });
 });
 function renderPosts(posts, container) {
@@ -63,19 +63,19 @@ function renderPosts(posts, container) {
   form.onsubmit = e => {
     e.preventDefault();
     const numberOfPosts = container.getAttribute("data-num-posts") || "3";
-    const sortOrder = container.getAttribute("data-sort-order") || "desc";
+    const order = container.getAttribute("data-sort-order") || "desc";
     const customApiUrl = form.querySelector("#customApiUrl").value.trim();
     if (customApiUrl) {
       // Adjusted API call to use the provided URL
-      const fullApiUrl = `${customApiUrl}/wp-json/wp/v2/posts?_embed&per_page=${numberOfPosts}&order=${sortOrder}&orderby=date`;
-      fetchAndUpdatePosts(fullApiUrl, container, numberOfPosts, sortOrder);
+      const fullApiUrl = `${customApiUrl}/wp-json/wp/v2/posts?_embed&per_page=${numberOfPosts}&order=${order}&orderby=date`;
+      fetchAndUpdatePosts(fullApiUrl, container, numberOfPosts, order);
     }
   };
 
   // Reinitialize the slider
   setupSlider(container);
 }
-function fetchAndUpdatePosts(apiUrl, container, numberOfPosts, sortOrder) {
+function fetchAndUpdatePosts(apiUrl, container, numberOfPosts, order) {
   const cacheKey = `posts_${encodeURIComponent(apiUrl)}`;
   const cachedPosts = sessionStorage.getItem(cacheKey);
   if (cachedPosts) {
@@ -83,7 +83,7 @@ function fetchAndUpdatePosts(apiUrl, container, numberOfPosts, sortOrder) {
     renderPosts(posts, container);
     setupSlider(container);
   } else {
-    fetch(`${apiUrl}/wp-json/wp/v2/posts?_embed&per_page=${numberOfPosts}&order=${sortOrder}&orderby=date`).then(response => response.json()).then(posts => {
+    fetch(`${apiUrl}/wp-json/wp/v2/posts?_embed&per_page=${numberOfPosts}&order=${order}&orderby=date`).then(response => response.json()).then(posts => {
       sessionStorage.setItem(cacheKey, JSON.stringify(posts));
       renderPosts(posts, container);
       setupSlider(container);

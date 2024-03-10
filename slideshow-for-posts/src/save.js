@@ -1,10 +1,10 @@
 const Save = ({ attributes }) => {
-	const { numberOfPosts, sortOrder, customApiUrl } = attributes;
+	const { numberOfPosts, order, customApiUrl } = attributes;
 	return (
 		<div
 			className="slideshow_for_posts--container"
 			data-num-posts={numberOfPosts}
-			data-sort-order={sortOrder}
+			data-sort-order={order}
 			data-custom-api-url={customApiUrl}
 		></div>
 	);

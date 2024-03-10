@@ -34,7 +34,7 @@ $max_width: 600px;
 	&--container {
 		font-family: Arial, Helvetica, sans-serif;
 		padding-top: calc($site_padding * 2);
-		padding-bottom: $site_padding;
+		padding-bottom: calc($site_padding * 2);
 		position: relative;
 	}
 

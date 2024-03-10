@@ -188,13 +188,13 @@ const Save = ({
 }) => {
   const {
     numberOfPosts,
-    sortOrder,
+    order,
     customApiUrl
   } = attributes;
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "slideshow_for_posts--container",
     "data-num-posts": numberOfPosts,
-    "data-sort-order": sortOrder,
+    "data-sort-order": order,
     "data-custom-api-url": customApiUrl
   });
 };
