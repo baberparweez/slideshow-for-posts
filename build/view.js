@@ -13,6 +13,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Fetch initial posts
     fetchAndUpdatePosts(initialApiUrl, container, numberOfPosts, order);
+
+    // Add keypress event listener for navigating slides
+    document.addEventListener("keydown", function (e) {
+      const prevBtn = container.querySelector(".slideshow_for_posts--prev");
+      const nextBtn = container.querySelector(".slideshow_for_posts--next");
+      if (e.key === "ArrowLeft" && prevBtn) {
+        prevBtn.click(); // Simulate click on the previous button
+      } else if (e.key === "ArrowRight" && nextBtn) {
+        nextBtn.click(); // Simulate click on the next button
+      }
+    });
   });
 });
 function renderPosts(posts, container) {
