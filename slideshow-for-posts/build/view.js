@@ -153,15 +153,12 @@ function setupSlider(container) {
   const onDragStart = e => {
     startX = e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
     currentX = startX;
+    slidesContainer.style.cursor = "grabbing";
   };
   const onDragMove = e => {
     e.preventDefault(); // Prevent default touch/mouse behavior
 
-    if (e.type === "touchmove") {
-      currentX = e.touches[0].clientX;
-    } else {
-      currentX = e.clientX;
-    }
+    currentX = e.touches[0].clientX;
     const diffX = currentX - startX;
     const slideWidth = slidesContainer.offsetWidth;
     const maxTranslateX = (totalSlides - 1) * slideWidth;
@@ -211,11 +208,15 @@ function setupSlider(container) {
       updateSlidePosition(); // Snap back to the current slide
     }
     currentX = null; // Reset currentX to stop further translation
+    slidesContainer.style.cursor = "";
   };
   // Attach the touch event listeners to the container for mobile
   container.addEventListener("touchstart", onDragStart);
   container.addEventListener("touchmove", onDragMove);
   container.addEventListener("touchend", onDragEnd);
+  container.addEventListener("mousedown", onDragStart);
+  container.addEventListener("mousemove", onDragMove);
+  container.addEventListener("mouseup", onDragEnd);
 
   // Create navigation if more than one slide
   if (slides.length > 1) {
