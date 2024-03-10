@@ -5,7 +5,9 @@ document.addEventListener("DOMContentLoaded", function () {
 			// Initial API call setup
 			const numberOfPosts = container.getAttribute("data-num-posts") || "3";
 			const sortOrder = container.getAttribute("data-sort-order") || "desc";
-			const initialApiUrl = `https://wptavern.com/wp-json/wp/v2/posts?_embed&per_page=${numberOfPosts}&order=${sortOrder}&orderby=date`;
+			const customApiUrl =
+				container.getAttribute("data-custom-api-url") || "https://wptavern.com";
+			const initialApiUrl = `${customApiUrl}/wp-json/wp/v2/posts?_embed&per_page=${numberOfPosts}&order=${sortOrder}&orderby=date`;
 
 			// Fetch initial posts
 			fetchAndUpdatePosts(initialApiUrl, container, numberOfPosts, sortOrder);

@@ -12,12 +12,13 @@ const Edit = (props) => {
 		className: "ddl-block",
 	});
 	const { attributes, setAttributes } = props;
-	const { numberOfPosts, order } = attributes; // Ensure customApiUrl is destructured from attributes
+	const { numberOfPosts, order, customApiUrl } = attributes; // Ensure customApiUrl is destructured from attributes
 
 	const [posts, setPosts] = useState([]);
+	const customApi = customApiUrl ? customApiUrl : "https://wptavern.com";
 
 	useEffect(() => {
-		const apiUrl = `https://wptavern.com/wp-json/wp/v2/posts?_embed&per_page=${numberOfPosts}&order=${order}&orderby=date`;
+		const apiUrl = `${customApi}/wp-json/wp/v2/posts?_embed&per_page=${numberOfPosts}&order=${order}&orderby=date`;
 		const cacheKey = `posts_${encodeURIComponent(apiUrl)}`;
 
 		const cachedPosts = sessionStorage.getItem(cacheKey);
@@ -32,12 +33,18 @@ const Edit = (props) => {
 				})
 				.catch((error) => console.error("Fetching posts failed:", error));
 		}
-	}, [numberOfPosts, order]); // React to changes in these attributes
+	}, [numberOfPosts, order, customApiUrl]); // React to changes in these attributes
 
 	return (
 		<div {...blockProps}>
 			<InspectorControls>
 				<PanelBody title="Block Settings" initialOpen={true}>
+					<TextControl
+						label="Custom API URL"
+						value={customApiUrl}
+						onChange={(value) => setAttributes({ customApiUrl: value })}
+						help="Enter a custom API URL to fetch posts from. Default value is 'https://wptavern.com'."
+					/>
 					<RangeControl
 						label="Number of Posts"
 						value={numberOfPosts}

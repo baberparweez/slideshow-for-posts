@@ -5,6 +5,7 @@ const Save = ({ attributes }) => {
 			className="slideshow_for_posts--container"
 			data-num-posts={numberOfPosts}
 			data-sort-order={sortOrder}
+			data-custom-api-url={customApiUrl}
 		></div>
 	);
 };

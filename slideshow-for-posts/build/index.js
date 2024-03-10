@@ -34,12 +34,14 @@ const Edit = props => {
   } = props;
   const {
     numberOfPosts,
-    order
+    order,
+    customApiUrl
   } = attributes; // Ensure customApiUrl is destructured from attributes
 
   const [posts, setPosts] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)([]);
+  const customApi = customApiUrl ? customApiUrl : "https://wptavern.com";
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
-    const apiUrl = `https://wptavern.com/wp-json/wp/v2/posts?_embed&per_page=${numberOfPosts}&order=${order}&orderby=date`;
+    const apiUrl = `${customApi}/wp-json/wp/v2/posts?_embed&per_page=${numberOfPosts}&order=${order}&orderby=date`;
     const cacheKey = `posts_${encodeURIComponent(apiUrl)}`;
     const cachedPosts = sessionStorage.getItem(cacheKey);
     if (cachedPosts) {
@@ -50,14 +52,21 @@ const Edit = props => {
         setPosts(fetchedPosts);
       }).catch(error => console.error("Fetching posts failed:", error));
     }
-  }, [numberOfPosts, order]); // React to changes in these attributes
+  }, [numberOfPosts, order, customApiUrl]); // React to changes in these attributes
 
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...blockProps
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
     title: "Block Settings",
     initialOpen: true
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.RangeControl, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
+    label: "Custom API URL",
+    value: customApiUrl,
+    onChange: value => setAttributes({
+      customApiUrl: value
+    }),
+    help: "Enter a custom API URL to fetch posts from. Default value is 'https://wptavern.com'."
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.RangeControl, {
     label: "Number of Posts",
     value: numberOfPosts,
     onChange: value => setAttributes({
@@ -172,7 +181,8 @@ const Save = ({
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "slideshow_for_posts--container",
     "data-num-posts": numberOfPosts,
-    "data-sort-order": sortOrder
+    "data-sort-order": sortOrder,
+    "data-custom-api-url": customApiUrl
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Save);
@@ -247,7 +257,7 @@ module.exports = window["wp"]["element"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/slideshow-for-posts","version":"0.1.0","title":"Slideshow For Posts","category":"widgets","icon":"smiley","description":"A WordPress plugin to provide users with a custom Gutenberg block that fetches the latest data using WP REST API from a WordPress site.","attributes":{"numberOfPosts":{"type":"number","default":3},"order":{"type":"string","default":"desc"}},"supports":{"html":false},"textdomain":"slideshow-for-posts","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/slideshow-for-posts","version":"0.1.0","title":"Slideshow For Posts","category":"widgets","icon":"smiley","description":"A WordPress plugin to provide users with a custom Gutenberg block that fetches the latest data using WP REST API from a WordPress site.","attributes":{"numberOfPosts":{"type":"number","default":3},"order":{"type":"string","default":"desc"},"customApiUrl":{"type":"string","default":""}},"supports":{"html":false},"textdomain":"slideshow-for-posts","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
 
 /***/ })
 

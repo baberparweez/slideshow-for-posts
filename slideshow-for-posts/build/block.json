@@ -15,6 +15,10 @@
     "order": {
       "type": "string",
       "default": "desc"
+    },
+    "customApiUrl": {
+      "type": "string",
+      "default": ""
     }
   },
   "supports": {
