@@ -17,6 +17,13 @@ const Edit = (props) => {
 	const [posts, setPosts] = useState([]);
 	const customApi = customApiUrl ? customApiUrl : "https://wptavern.com";
 
+	// Utility function to remove HTML tags from a string
+	function stripHtml(html) {
+		var temporaryDiv = document.createElement("div");
+		temporaryDiv.innerHTML = html;
+		return temporaryDiv.textContent || temporaryDiv.innerText || "";
+	}
+
 	useEffect(() => {
 		const apiUrl = `${customApi}/wp-json/wp/v2/posts?_embed&per_page=${numberOfPosts}&order=${order}&orderby=date`;
 		const cacheKey = `posts_${encodeURIComponent(apiUrl)}`;
@@ -67,16 +74,17 @@ const Edit = (props) => {
 				<div className="slideshow_for_posts--slides">
 					{posts.map((post) => (
 						<div key={post.id} className="slideshow_for_posts--slide">
-							{console.log(post)}
-							<img
-								src={
-									post._embedded["wp:featuredmedia"]
-										? post._embedded["wp:featuredmedia"][0].source_url
-										: ""
-								}
-								alt={post.title.rendered}
-							/>
-							<p>{post.title.rendered}</p>
+							{post._embedded &&
+								post._embedded["wp:featuredmedia"] &&
+								post._embedded["wp:featuredmedia"][0] && (
+									<img
+										src={post._embedded["wp:featuredmedia"][0].source_url}
+										alt={post.title.rendered}
+									/>
+								)}
+							<h4 className="title">{post.title.rendered}</h4>
+							<p className="date">{new Date(post.date).toLocaleDateString()}</p>
+							<div className="excerpt">{stripHtml(post.excerpt.rendered)}</div>
 						</div>
 					))}
 				</div>

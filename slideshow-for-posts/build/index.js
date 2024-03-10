@@ -40,6 +40,13 @@ const Edit = props => {
 
   const [posts, setPosts] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)([]);
   const customApi = customApiUrl ? customApiUrl : "https://wptavern.com";
+
+  // Utility function to remove HTML tags from a string
+  function stripHtml(html) {
+    var temporaryDiv = document.createElement("div");
+    temporaryDiv.innerHTML = html;
+    return temporaryDiv.textContent || temporaryDiv.innerText || "";
+  }
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
     const apiUrl = `${customApi}/wp-json/wp/v2/posts?_embed&per_page=${numberOfPosts}&order=${order}&orderby=date`;
     const cacheKey = `posts_${encodeURIComponent(apiUrl)}`;
@@ -94,10 +101,16 @@ const Edit = props => {
   }, posts.map(post => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     key: post.id,
     className: "slideshow_for_posts--slide"
-  }, console.log(post), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-    src: post._embedded["wp:featuredmedia"] ? post._embedded["wp:featuredmedia"][0].source_url : "",
+  }, post._embedded && post._embedded["wp:featuredmedia"] && post._embedded["wp:featuredmedia"][0] && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+    src: post._embedded["wp:featuredmedia"][0].source_url,
     alt: post.title.rendered
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, post.title.rendered))))));
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h4", {
+    className: "title"
+  }, post.title.rendered), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    className: "date"
+  }, new Date(post.date).toLocaleDateString()), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "excerpt"
+  }, stripHtml(post.excerpt.rendered)))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Edit);
 

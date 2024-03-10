@@ -17,6 +17,8 @@
 }
 .wp-block-create-block-slideshow-for-posts .slideshow_for_posts--slides {
   display: block;
+  margin: 0 auto;
+  max-width: 600px;
 }
 .slideshow_for_posts--slides_outer {
   margin: 0 auto;
@@ -63,6 +65,9 @@
   flex: 0 0 100%;
   max-width: 100%;
   width: 100%;
+}
+.wp-block-create-block-slideshow-for-posts .slideshow_for_posts--slide {
+  margin-bottom: 30px;
 }
 .slideshow_for_posts--slide a {
   text-decoration: none;
