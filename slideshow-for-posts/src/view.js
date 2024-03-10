@@ -141,39 +141,115 @@ function setupSlider(container) {
 		slidesContainer.style.transform = newTransformValue;
 	}
 
-	function goToNextSlide() {
-		currentIndex = (currentIndex + 1) % totalSlides;
-		updateActiveSlide();
-		updateSlidePosition();
+	function goToPreviousSlide() {
+		if (currentIndex === 0) {
+			// If we're at the first slide, move to the last slide from the left
+			slidesContainer.style.transition = "none";
+			currentIndex = totalSlides - 1;
+			updateActiveSlide();
+			slidesContainer.style.transform = `translateX(-${totalSlides * 100}%)`;
+			setTimeout(() => {
+				slidesContainer.style.transition = "transform 0.3s ease-in-out";
+				updateSlidePosition();
+			}, 10);
+		} else {
+			currentIndex--;
+			updateActiveSlide();
+			updateSlidePosition();
+		}
 	}
 
-	function goToPreviousSlide() {
-		currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-		updateActiveSlide();
-		updateSlidePosition();
+	function goToNextSlide() {
+		if (currentIndex === totalSlides - 1) {
+			// If we're at the last slide, move to the first slide from the right
+			slidesContainer.style.transition = "none";
+			currentIndex = 0;
+			updateActiveSlide();
+			slidesContainer.style.transform = `translateX(${totalSlides * 100}%)`;
+			setTimeout(() => {
+				slidesContainer.style.transition = "transform 0.3s ease-in-out";
+				updateSlidePosition();
+			}, 10);
+		} else {
+			currentIndex++;
+			updateActiveSlide();
+			updateSlidePosition();
+		}
 	}
 
 	const onDragStart = (e) => {
-		startX = e.clientX;
+		startX = e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
+		currentX = startX;
+	};
+
+	const onDragMove = (e) => {
+		e.preventDefault(); // Prevent default touch/mouse behavior
+
+		if (e.type === "touchmove") {
+			currentX = e.touches[0].clientX;
+		} else {
+			currentX = e.clientX;
+		}
+
+		const diffX = currentX - startX;
+		const slideWidth = slidesContainer.offsetWidth;
+		const maxTranslateX = (totalSlides - 1) * slideWidth;
+		const translateX = Math.min(Math.max(-maxTranslateX, diffX), 0);
+
+		slidesContainer.style.transform = `translateX(${translateX}px)`;
 	};
 
 	const onDragEnd = (e) => {
-		endX = e.clientX;
+		const endX =
+			e.type === "touchend" ? e.changedTouches[0].clientX : e.clientX;
 		const threshold = 50; // Minimum distance to trigger a slide change
-		if (startX - endX > threshold) {
-			goToNextSlide(); // Go to next slide
-		} else if (endX - startX > threshold) {
-			goToPreviousSlide(); // Go to previous slide
+		const slideWidth = slidesContainer.offsetWidth;
+		const maxTranslateX = (totalSlides - 1) * slideWidth;
+
+		if (endX - startX > threshold) {
+			// Go to previous slide
+			if (currentIndex === 0) {
+				// If we're at the first slide, move to the last slide from the left
+				slidesContainer.style.transition = "none";
+				currentIndex = totalSlides - 1;
+				updateActiveSlide();
+				slidesContainer.style.transform = `translateX(-${totalSlides * 100}%)`;
+				setTimeout(() => {
+					slidesContainer.style.transition = "transform 0.3s ease-in-out";
+					updateSlidePosition();
+				}, 10);
+			} else {
+				currentIndex--;
+				updateActiveSlide();
+				updateSlidePosition();
+			}
+		} else if (startX - endX > threshold) {
+			// Go to next slide
+			if (currentIndex === totalSlides - 1) {
+				// If we're at the last slide, move to the first slide from the right
+				slidesContainer.style.transition = "none";
+				currentIndex = 0;
+				updateActiveSlide();
+				slidesContainer.style.transform = `translateX(${totalSlides * 100}%)`;
+				setTimeout(() => {
+					slidesContainer.style.transition = "transform 0.3s ease-in-out";
+					updateSlidePosition();
+				}, 10);
+			} else {
+				currentIndex++;
+				updateActiveSlide();
+				updateSlidePosition();
+			}
+		} else {
+			updateSlidePosition(); // Snap back to the current slide
 		}
+
+		currentX = null; // Reset currentX to stop further translation
 	};
-
-	// Attach the mouse event listeners to the container
-	container.addEventListener("mousedown", onDragStart);
-	container.addEventListener("mouseup", onDragEnd);
-
-	// Optionally, add touch event listeners for mobile devices
-	container.addEventListener("touchstart", (e) => onDragStart(e.touches[0]));
-	container.addEventListener("touchend", (e) => onDragEnd(e.changedTouches[0]));
+	// Attach the touch event listeners to the container for mobile
+	container.addEventListener("touchstart", onDragStart);
+	container.addEventListener("touchmove", onDragMove);
+	container.addEventListener("touchend", onDragEnd);
 
 	// Create navigation if more than one slide
 	if (slides.length > 1) {

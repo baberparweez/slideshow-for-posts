@@ -98,6 +98,7 @@ $max_width: 600px;
 			border-radius: 20px;
 			object-fit: cover;
 			max-width: $max_width;
+			width: 100%;
 
 			.wp-block-create-block-slideshow-for-posts & {
 				aspect-ratio: 16/9;

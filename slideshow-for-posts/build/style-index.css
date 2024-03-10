@@ -78,6 +78,7 @@
   -o-object-fit: cover;
      object-fit: cover;
   max-width: 600px;
+  width: 100%;
 }
 .wp-block-create-block-slideshow-for-posts .slideshow_for_posts--slide img {
   aspect-ratio: 16/9;
