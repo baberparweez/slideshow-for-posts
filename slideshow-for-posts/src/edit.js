@@ -38,12 +38,6 @@ const Edit = (props) => {
 		<div {...blockProps}>
 			<InspectorControls>
 				<PanelBody title="Block Settings" initialOpen={true}>
-					{/* <TextControl
-						label="Custom API URL"
-						value={customApiUrl}
-						onChange={(value) => setAttributes({ customApiUrl: value })}
-						help="Enter a custom API URL to fetch posts from."
-					/> */}
 					<RangeControl
 						label="Number of Posts"
 						value={numberOfPosts}

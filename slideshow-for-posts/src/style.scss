@@ -1,15 +1,9 @@
-/**
- * The following styles get applied both on the front of your site
- * and in the editor.
- *
- * Replace them with your own styles or remove the file completely.
- */
-
 $black: #000;
 $white: #fff;
 $site_padding: 30px;
 $nav_distance: calc(50% - 360px);
 $nav_distance_mobile: calc(50% - $site_padding);
+$max_width: 600px;
 
 .wp-block-create-block-slideshow-for-posts {
 	padding: $site_padding;
@@ -32,7 +26,7 @@ $nav_distance_mobile: calc(50% - $site_padding);
 
 		&_outer {
 			margin: 0 auto;
-			max-width: 600px;
+			max-width: $max_width;
 			overflow: hidden;
 		}
 	}
@@ -83,6 +77,7 @@ $nav_distance_mobile: calc(50% - $site_padding);
 		img {
 			aspect-ratio: 16/9;
 			object-fit: cover;
+			max-width: $max_width;
 
 			.wp-block-create-block-slideshow-for-posts & {
 				aspect-ratio: 16/9;
@@ -106,6 +101,10 @@ $nav_distance_mobile: calc(50% - $site_padding);
 	}
 	&--prev,
 	&--next {
+		appearance: none;
+		border: none;
+		background: none;
+		cursor: pointer;
 		position: absolute;
 		top: unset;
 		bottom: 0;

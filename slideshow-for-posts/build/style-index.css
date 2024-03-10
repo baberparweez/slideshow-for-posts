@@ -1,12 +1,6 @@
 /*!***************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/style.scss ***!
   \***************************************************************************************************************************************************************************************************************************************/
-/**
- * The following styles get applied both on the front of your site
- * and in the editor.
- *
- * Replace them with your own styles or remove the file completely.
- */
 .wp-block-create-block-slideshow-for-posts {
   padding: 30px;
 }
@@ -69,6 +63,7 @@
   aspect-ratio: 16/9;
   -o-object-fit: cover;
      object-fit: cover;
+  max-width: 600px;
 }
 .wp-block-create-block-slideshow-for-posts .slideshow_for_posts--slide img {
   aspect-ratio: 16/9;
@@ -87,6 +82,12 @@
   color: #000;
 }
 .slideshow_for_posts--prev, .slideshow_for_posts--next {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: none;
+  background: none;
+  cursor: pointer;
   position: absolute;
   top: unset;
   bottom: 0;
