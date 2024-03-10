@@ -39,12 +39,12 @@ $max_width: 600px;
 		input {
 			border: 0;
 			box-shadow: 0 0 0 2px #000000 inset;
-
 			border-radius: 8px;
 			display: inline-block;
 			outline: 0;
 			padding: 9px 16px 9px;
 			line-height: 1;
+			min-width: 160px;
 		}
 
 		button {
@@ -99,6 +99,7 @@ $max_width: 600px;
 			color: $black;
 		}
 	}
+
 	&--prev,
 	&--next {
 		appearance: none;

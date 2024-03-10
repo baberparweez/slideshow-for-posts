@@ -35,6 +35,7 @@
   outline: 0;
   padding: 9px 16px 9px;
   line-height: 1;
+  min-width: 160px;
 }
 .slideshow_for_posts--form button {
   background: #000;
