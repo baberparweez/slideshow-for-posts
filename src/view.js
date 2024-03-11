@@ -224,24 +224,6 @@ function setupSlider(container) {
         slidesContainer.style.cursor = "grabbing";
     };
 
-    const onDragMove = (e) => {
-        e.preventDefault(); // Prevent default touch/mouse behavior
-
-        // Check for touch events and mouse events separately
-        if (e.type === "touchmove") {
-            currentX = e.touches[0].clientX;
-        } else {
-            return; // Exit the function if it's neither a touchmove nor a valid mousemove
-        }
-
-        const diffX = currentX - startX;
-        const slideWidth = slidesContainer.offsetWidth;
-        const maxTranslateX = (totalSlides - 1) * slideWidth;
-        const translateX = Math.min(Math.max(-maxTranslateX, diffX), 0);
-
-        slidesContainer.style.transform = `translateX(${translateX}px)`;
-    };
-
     const onDragEnd = (e) => {
         const endX =
             e.type === "touchend" ? e.changedTouches[0].clientX : e.clientX;
@@ -298,11 +280,9 @@ function setupSlider(container) {
     };
     // Attach the touch event listeners to the container for mobile
     container.addEventListener("touchstart", onDragStart);
-    container.addEventListener("touchmove", onDragMove);
     container.addEventListener("touchend", onDragEnd);
 
     container.addEventListener("mousedown", onDragStart);
-    container.addEventListener("mousemove", onDragMove);
     container.addEventListener("mouseup", onDragEnd);
 
     // Create navigation if more than one slide

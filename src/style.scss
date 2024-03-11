@@ -49,6 +49,8 @@ $max_width: 600px;
 
     &--slides {
         display: flex;
+        margin-left: -#{calc($site_padding / 2)};
+        margin-right: -#{calc($site_padding / 2)};
         transition: transform 0.3s ease;
 
         .wp-block-create-block-slideshow-for-posts & {
@@ -91,6 +93,8 @@ $max_width: 600px;
 
     &--slide {
         flex: 0 0 100%;
+        padding-left: calc($site_padding / 2);
+        padding-right: calc($site_padding / 2);
         text-align: left;
         max-width: 100%;
         width: 100%;
