@@ -2,17 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document
         .querySelectorAll(".slideshow_for_posts--container")
         .forEach((container) => {
-            // Initial API call setup
-            const numberOfPosts =
-                container.getAttribute("data-num-posts") || "3";
-            const order = container.getAttribute("data-sort-order") || "desc";
-            const customApiUrl =
-                container.getAttribute("data-custom-api-url") ||
-                "https://wptavern.com";
-            const initialApiUrl = `${customApiUrl}/wp-json/wp/v2/posts?_embed&per_page=${numberOfPosts}&order=${order}&orderby=date`;
-
-            // Fetch initial posts
-            fetchAndUpdatePosts(initialApiUrl, container, numberOfPosts, order);
+            initializeSlider(container);
 
             // Add keypress event listener for navigating slides
             document.addEventListener("keydown", function (e) {
@@ -32,7 +22,20 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 });
 
+function initializeSlider(container) {
+    // Initial API call setup
+    const numberOfPosts = container.getAttribute("data-num-posts") || "3";
+    const order = container.getAttribute("data-sort-order") || "desc";
+    const customApiUrl =
+        container.getAttribute("data-custom-api-url") || "https://wptavern.com";
+    const initialApiUrl = `${customApiUrl}/wp-json/wp/v2/posts?_embed&per_page=${numberOfPosts}&order=${order}&orderby=date`;
+
+    // Fetch initial posts
+    fetchAndUpdatePosts(initialApiUrl, container, numberOfPosts, order);
+}
+
 function renderPosts(posts, container) {
+    container.innerHTML = "";
     let slidesOuter = container.querySelector(
         ".slideshow_for_posts--slides_outer"
     );
@@ -114,16 +117,21 @@ function fetchAndUpdatePosts(apiUrl, container, numberOfPosts, order) {
         renderPosts(posts, container);
         setupSlider(container);
     } else {
+        container.innerHTML = `<svg width="40" height="40" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><style>.spinner_aj0A{transform-origin:center;animation:spinner_KYSC .75s infinite linear}@keyframes spinner_KYSC{100%{transform:rotate(360deg)}}</style><path d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z" class="spinner_aj0A"/></svg>`;
         fetch(
             `${apiUrl}/wp-json/wp/v2/posts?_embed&per_page=${numberOfPosts}&order=${order}&orderby=date`
         )
             .then((response) => response.json())
             .then((posts) => {
                 sessionStorage.setItem(cacheKey, JSON.stringify(posts));
+                container.innerHTML = ""; // Clear the loading spinner before rendering posts
                 renderPosts(posts, container);
                 setupSlider(container);
             })
-            .catch((error) => console.error("Fetching posts failed:", error));
+            .catch((error) => {
+                console.error("Fetching posts failed:", error);
+                showErrorRetry(container, numberOfPosts, order);
+            });
     }
 }
 
@@ -309,4 +317,12 @@ function setupSlider(container) {
         container.appendChild(prevBtn);
         container.appendChild(nextBtn);
     }
+}
+
+function showErrorRetry(container, numberOfPosts, order) {
+    container.innerHTML = `<p>Error loading posts. Please try a different WordPress URL.</p><button class="button" id="retryButton">Reload Slider</button>`;
+    const retryButton = container.querySelector("#retryButton");
+    retryButton.addEventListener("click", () => {
+        initializeSlider(container); // Reinitialize the slider
+    });
 }
