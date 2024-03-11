@@ -68,7 +68,11 @@ function renderPosts(posts, container) {
 
         slide.innerHTML = `
             <div class="slideshow_for_posts--content">
-                ${imageUrl ? `<img src="${imageUrl}" alt="${title}" />` : ""}
+                ${
+                    imageUrl
+                        ? `<a href="${link}" target="_blank"><img src="${imageUrl}" alt="${title}" /></a>`
+                        : ""
+                }
                 <a href="${link}" target="_blank"><h4 class="title">${title}</h4></a>
                 <p class="date">${date}</p>
                 <div class="excerpt">${excerpt}</div>
