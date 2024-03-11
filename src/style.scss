@@ -38,6 +38,10 @@ $max_width: 600px;
         position: relative;
         text-align: center;
 
+        .spinner {
+            margin: 0 auto;
+        }
+
         #retryButton {
             @include button();
         }
