@@ -143,7 +143,7 @@ $max_width: 600px;
         cursor: pointer;
         position: absolute;
         top: unset;
-        bottom: 0;
+        bottom: 18px;
 
         @media only screen and (min-width: 767px) {
             top: 280px;
