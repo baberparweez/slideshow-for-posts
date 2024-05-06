@@ -9,7 +9,7 @@ import {
 
 const Edit = (props) => {
 	const blockProps = useBlockProps({
-		className: "ddl-block",
+		className: "custom-block",
 	});
 	const { attributes, setAttributes } = props;
 	const { numberOfPosts, order, customApiUrl } = attributes; // Ensure customApiUrl is destructured from attributes
